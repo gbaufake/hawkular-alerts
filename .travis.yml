@@ -48,3 +48,5 @@ after_success:
     ./mvnw -s .travis.maven.settings.xml deploy -DskipTests ;
     ./.travis.swagger.sh ;
   fi
+- mvn cobertura:cobertura
+- bash <(curl -s https://codecov.io/bash)

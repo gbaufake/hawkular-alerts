@@ -39,6 +39,10 @@ gem 'byebug'
 # Rspec
 gem 'rspec-rails', '~> 3.5'
 
+# MongoID
+gem 'mongoid'
+
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

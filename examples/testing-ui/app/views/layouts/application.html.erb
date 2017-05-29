@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>HawkularTestingUi</title>
+    <title>Hawkular UI Testing</title>
     <%= csrf_meta_tags %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -9,6 +9,17 @@
   </head>
 
   <body>
-    <%= yield %>
+    <% if notice %>
+     <div class="alert alert-success fade in" data-alert="alert">
+       <a class="close" data-dismiss='alert' href="#">×</a>
+       <p><%= notice %></p>
+     </div>
+   <% end %>
+
+      <div id="wrapper">
+        <div id="page-wrapper">
+          <%= yield %>
+        </div>
+      </div>
   </body>
 </html>

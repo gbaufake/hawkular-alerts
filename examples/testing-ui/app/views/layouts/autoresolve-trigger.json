@@ -1,0 +1,38 @@
+{
+  "triggers":[
+    {
+      "trigger": {
+        "id": "ops-example",
+        "eventType": "ALERT",
+        "name": "Auto Resolving trigger",
+        "description": "This text shows up on the alert screen if event.text is nil",
+        "severity": "HIGH",
+        "eventText": "This text shows up on the alerts screen",
+        "autoResolve": true,
+        "autoResolveAlerts": true,
+        "enabled": true,
+        "tags": {
+          "type": "node",
+          "nodename": "vm-48-124.eng.lab.tlv.redhat.com",
+          "url": "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+        }
+      },
+      "conditions":[
+        {
+          "triggerMode": "FIRING",
+          "type": "THRESHOLD",
+          "dataId": "hm_g_data_x",
+          "operator": "GT",
+          "threshold": 5
+        },
+        {
+          "triggerMode": "AUTORESOLVE",
+          "type": "THRESHOLD",
+          "dataId": "hm_g_data_x",
+          "operator": "LTE",
+          "threshold": 5
+        }
+      ]
+    }
+  ]
+}

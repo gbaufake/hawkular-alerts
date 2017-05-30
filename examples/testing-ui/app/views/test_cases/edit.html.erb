@@ -1,6 +1,4 @@
-<h1>Editing Test Case</h1>
-
-<%= render 'form', test_case: @test_case %>
-
-<%= link_to 'Show', @test_case %> |
+<div class="row" id="row-id">
+<%= render 'form', test_case: @test_case,  disabled: false,  title: "Edit Test Case - #{@test_case.name}" %>
 <%= link_to 'Back', test_cases_path %>
+</div>

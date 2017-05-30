@@ -24,9 +24,8 @@ class TestCasesController < ApplicationController
   # POST /test_cases
   # POST /test_cases.json
   def create
-
+    
     @test_case = TestCase.new(test_case_params)
-
     respond_to do |format|
       if @test_case.save
         format.html { redirect_to @test_case, notice: 'Test case was successfully created.' }

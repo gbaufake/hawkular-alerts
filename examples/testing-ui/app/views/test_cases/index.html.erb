@@ -2,12 +2,12 @@
 
 
 <%= link_to 'New Test Case', new_test_case_path %> -->
-<%= render partial: 'layouts/title', locals: { title: 'Tests Cases', bootstrap_class: 'col-lg-12' } %>
+<%= render partial: 'title', locals: { title: 'Tests Cases', bootstrap_class: 'col-lg-12' } %>
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="fa fa-bar-chart-o fa-fw"></i> Test Case in Database
+        <i class="fa fa-bar-chart-o fa-fw"></i> Test Cases
       </div>
       <!-- /.panel-heading -->
       <div class="panel-body">
@@ -19,7 +19,9 @@
                   <thead>
                     <tr>
                       <th>Name</th>
+                      <th> Environment </th>
                       <th>Actions</th>
+                      <th>Executions</th>
                     </tr>
                   </thead>
 
@@ -27,6 +29,10 @@
                     <% @test_cases.each do |test_case| %>
                     <tr>
                       <td><%= test_case.name %></td>
+                      <td>
+                        <%= render partial: 'layouts/partials/label-environment.html.erb' , locals: {test_case: test_case} %>
+                      </td>
+
                       <td>
                         <%= link_to test_case, class: "btn btn-primary btn-circle", 'data-toggle': 'tooltip', 'data-placement':'top', title: 'Show Test Case'  do %>
                         <i class="fa fa-eye"></i>
@@ -41,9 +47,16 @@
                         <% end %>
 
                       </td>
+
+                      <td>
+                        <%= link_to  test_case_executions_path(test_case.id), class: "btn btn-info btn-circle", 'data-toggle': 'tooltip', 'data-placement':'top', title: 'Executions'  do %>
+                      <i class="fa fa-gear"></i>
+                            <% end %>
+                      </td>
                     </tr>
                     <% end %>
                   </tbody>
+                </table>
                 </div>
            </div>
         </div>

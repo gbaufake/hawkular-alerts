@@ -1,0 +1,5 @@
+<% if test_case.parameters[:hawkular_environment].include?("localhost") %>
+  <span class="tag label label-primary"><%=test_case.parameters[:hawkular_environment] %></span>
+  <% else %>
+  <span class="tag label label-info"><%=test_case.parameters[:hawkular_environment] %></span>
+<% end %>

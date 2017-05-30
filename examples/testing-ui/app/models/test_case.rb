@@ -3,6 +3,8 @@ class TestCase
   field :parameters, type: Hash
   field :headers, type: Hash
 
+  has_many :executions
+
 
   def url
     @url = URI(self.parameters[:hawkular_environment] + self.parameters[:hawkular_endpoint])

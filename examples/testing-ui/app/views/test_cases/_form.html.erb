@@ -1,29 +1,36 @@
 <div class = "col-lg-12">
-  <div class="panel panel-default">
-    <div class="panel-heading"> Headers </div>
+  <div class="panel panel-default" id="accordion">
+    <div class="panel-heading">
+      <h4 class="panel-title">
+        <a data-toggle="collapse" data-parent="#accordion" href="#collapseTestCase" aria-expanded="true" class=""><%= title %></a>
+      </h4>
+      </div>
+      <div id="collapseTestCase" class="panel-collapse collapse in" aria-expanded="true">
     <div class="panel-body">
 
         <%= simple_form_for @test_case do |f| %>
           <%= f.simple_fields_for :headers do |ff|%>
-            <%= ff.input :hawkular_tenant,  input_html: { class: 'form-control' }%>
-            <%= ff.input :content_type, collection:['application/json'], selected: [ "application/json" ], input_html: { class: 'form-control' }  %>
-            <%= ff.input :authorization, input_html: { class: 'form-control' }  %>
+            <%= ff.input :hawkular_tenant,  input_html: { class: 'form-control' }, disabled: disabled%>
+            <%= ff.input :content_type, collection:['application/json'], selected: [ "application/json" ], input_html: { class: 'form-control' }, disabled: disabled  %>
+            <%= ff.input :authorization, input_html: { class: 'form-control' }, disabled: disabled  %>
 
           <% end %>
           <br>
 
           <%= f.simple_fields_for :parameters do |ff|%>
-            <%= ff.input :name, input_html: { class: 'form-control' } %>
-            <%=  ff.input :http_method, collection:['GET', 'POST', 'DELETE', 'PUT'], selected: [ 'GET' ] , input_html: { class: 'form-control' }  %>
-            <%=  ff.input :body, as: :text, input_html: { class: 'form-control' }, :required => false   %>
-            <%= ff.input :hawkular_environment, input_html: { class: 'form-control' } %>
-            <%= ff.input :hawkular_endpoint, input_html: { class: 'form-control' } %>
+            <%= ff.input :name, input_html: { class: 'form-control' } , disabled: disabled%>
+            <%=  ff.input :http_method, collection:['GET', 'POST', 'DELETE', 'PUT'], selected: [ 'GET' ] , input_html: { class: 'form-control' }, disabled: disabled  %>
+            <%=  ff.input :body, as: :text, input_html: { class: 'form-control' }, :required => false, disabled: disabled   %>
+            <%= ff.input :hawkular_environment, input_html: { class: 'form-control' }, disabled: disabled %>
+            <%= ff.input :hawkular_endpoint, input_html: { class: 'form-control' }, disabled: disabled %>
              <%= f.label :ssl %>
-            <%= ff.collection_radio_buttons :ssl, [[true, 'Yes'] ,[false, 'No']], :first, :last  do |b|
+            <%= ff.collection_radio_buttons :ssl, [[true, 'Yes'] ,[false, 'No']], :first, :last , disabled: disabled do |b|
               b.label { b.radio_button + b.text }
             end%>
               <br>
-             <%= f.button :submit , class:" btn btn-primary"%>
+              <% unless  disabled %>
+                  <%= f.button :submit , class:" btn btn-success btn-block"%>
+              <% end %>
             <% end %>
           <% end %>
       </div>

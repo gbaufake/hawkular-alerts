@@ -1,0 +1,5 @@
+<% if execution.success == "Yes" %>
+  <span class="tag label label-success"><%= execution.success %></span>
+<% elsif execution.success == "No"  %>
+  <span class="tag label label-danger"><%= execution.success %></span>
+<% end %>

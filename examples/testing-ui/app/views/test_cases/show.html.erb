@@ -1,4 +1,7 @@
-<p id="notice"><%= notice %></p>
 
-<%= link_to 'Edit', edit_test_case_path(@test_case) %> |
+<div class="row" id="row-id">
+<%= render 'form', test_case: @test_case,  disabled: true,  title: "Show Test Case - #{@test_case.name}" %>
+</div>
+
+
 <%= link_to 'Back', test_cases_path %>

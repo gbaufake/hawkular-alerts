@@ -26,12 +26,11 @@ class ExecutionsController < ApplicationController
     @test_case = TestCase.find(params[:test_case_id ])
     @execution.test_case = @test_case
     execute
-    respond_to do |format|
-      if @execution.save
-        format.html { redirect_to test_case_executions_path(@test_case), notice: 'Execution was successfully created.' }
-      else
-        format.html { render :new }
-      end
+    if @execution.save
+      redirect_to test_case_executions_path(@test_case), notice: 'Execution was successfully created.'
+    else
+      flash.now[:error] = "Couldn't run the execution on #{@test_case.parameters[:hawkular_environment]} - Connection Refused"
+      render :new
     end
   end
 
@@ -58,13 +57,16 @@ class ExecutionsController < ApplicationController
     end
 
     def execute
-      time = Benchmark.measure do
+      if @execution.test_case.peform_request.nil?
+      else
+        time = Benchmark.measure do
+          response = @execution.test_case.peform_request
+        end
         response = @execution.test_case.peform_request
+        @execution.actual_response_code = response.code
+        @execution.actual_response_body = response.body
+        @execution.time_of_response = time.real
+        @execution.save
       end
-      response = @execution.test_case.peform_request
-      @execution.actual_response_code = response.code
-      @execution.actual_response_body = response.body
-      @execution.time_of_response = time.real
-      @execution.save
     end
 end

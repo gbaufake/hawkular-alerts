@@ -24,11 +24,12 @@ class TestCasesController < ApplicationController
   # POST /test_cases
   # POST /test_cases.json
   def create
-    
+
     @test_case = TestCase.new(test_case_params)
     respond_to do |format|
+      @test_case.headers[:authorization] = "Basic " + Base64.encode64( "#{@test_case.user}:{#{@test_case.password}")
       if @test_case.save
-        format.html { redirect_to @test_case, notice: 'Test case was successfully created.' }
+        format.html { redirect_to test_cases_path, notice: 'Test case was successfully created.' }
         format.json { render :show, status: :created, location: @test_case }
       else
         format.html { render :new }
@@ -41,7 +42,7 @@ class TestCasesController < ApplicationController
   # PATCH/PUT /test_cases/1.json
   def update
     respond_to do |format|
-      byebug
+      @test_case.headers[:authorization] = "Basic " + Base64.encode64( "#{@test_case.user}:{#{@test_case.password}")
       if @test_case.update(test_case_params)
         format.html { redirect_to test_cases_path, notice: 'Test case was successfully updated.' }
       else
@@ -69,7 +70,7 @@ class TestCasesController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def test_case_params
 
-      params.require(:test_case).permit(parameters: [:name, :ssl, :hawkular_environment, :hawkular_endpoint, :http_method, :body], headers: [:hawkular_tenant, :content_type, :authorization, :cache_control])
+      params.require(:test_case).permit(:user, :password, parameters: [:name, :ssl, :hawkular_environment, :hawkular_endpoint, :http_method, :body], headers: [:hawkular_tenant, :content_type, :cache_control])
 
     end
 end

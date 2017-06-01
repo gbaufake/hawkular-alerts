@@ -9,6 +9,8 @@ class Execution
   field :actual_response_body
   belongs_to :test_case
 
+  validates_presence_of :actual_response_code
+
   def success
     if self.expected_response_code == actual_response_code
       return "Yes"

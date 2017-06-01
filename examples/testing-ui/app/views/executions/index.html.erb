@@ -1,9 +1,9 @@
-<%= render partial: 'title', locals: { title: "#{@test_case.name} - Executions", bootstrap_class: 'col-lg-12' } %>
+<%= render partial: 'title', locals: { title: " TestCase: #{@test_case.name}", bootstrap_class: 'col-lg-12' } %>
 <div class="row">
   <div class="col-lg-12">
     <div class="panel panel-default">
       <div class="panel-heading">
-        <i class="fa fa-bar-chart-o fa-fw"></i> Executions
+        <i class="fa fa-bar-chart-o fa-fw"></i> List of Executions
       </div>
       <!-- /.panel-heading -->
       <div class="panel-body">
@@ -31,6 +31,10 @@
                   <td><%= execution.actual_response_code %></td>
                   <td><%= render partial: 'layouts/partials/label-execution.html.erb' , locals: {execution: execution} %> </td>
                   <td>
+                    <%= link_to test_case_execution_path(execution.test_case.id, execution.id), class: "btn btn-default btn-circle", 'data-toggle': 'tooltip', 'data-placement':'top', title: 'Execution Result'  do %>
+                    <i class="fa fa-flag-checkered"></i>
+
+                  <% end %>
                       <%= link_to test_case_execution_path(execution.test_case.id, execution.id), class: "btn btn-danger btn-circle", method: :delete, data: { confirm: 'Are you sure?' } , 'data-toggle': 'tooltip', 'data-placement':'top', title: 'Delete Execution' do %>
                           <i class="fa fa-trash-o"></i>
                       <% end %>

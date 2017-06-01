@@ -9,12 +9,38 @@
     <div class="panel-body">
 
         <%= simple_form_for @execution, url: test_case_executions_url do |f| %>
-        <%= f.input :expected_response_code,  input_html: { class: 'form-control' }, disabled: disabled%>
-
-              <% unless  disabled %>
-                  <%= f.button :submit , class:" btn btn-success btn-block"%>
+          <%= f.input :expected_response_code,  input_html: { class: 'form-control' }, disabled: disabled, required: true%>
+          <% if params[:action] == "show"%>
+            <%= f.input :actual_response_code,  input_html: { class: 'form-control' }, disabled: disabled, required: true%>
+            <%= f.input :time_of_response,  input_html: { class: 'form-control' }, disabled: disabled, required: true, label: "Time of Response in Milliseconds"%>
+          <%= f.label :body %>
+          <% if  @execution.actual_response_body.blank? %>
+              <pre>
+                <code class="json hljs">
+                    <%= @execution.actual_response_body%>
+                  </code>
+          </pre>
+          <% else %>
+              <pre>
+                <code class="json hljs">
+                    <%= JSON.pretty_generate(JSON.parse(@execution.actual_response_body))%>
+                  </code>
+              </pre>
+          <% end %>
+          <% end %>
+          <br>
+          <% unless  disabled %>
+              <%= button_tag(type: 'submit', class: "btn btn-success btn-block") do %>
+                  <i class="fa fa-play"></i> Run Execution
               <% end %>
-            <% end %>
+          <% end %>
+          <%= link_to test_case_executions_path, class:" btn btn-info btn-block"  do %>
+              <i class="fa fa-arrow-left"></i> Back
+          <% end %>
+        <% end %>
+
+
+
       </div>
     </div>
   </div>

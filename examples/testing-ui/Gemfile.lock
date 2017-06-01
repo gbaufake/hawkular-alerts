@@ -43,6 +43,7 @@ GEM
     arel (8.0.0)
     autoprefixer-rails (7.0.1)
       execjs
+    awesome_print (1.7.0)
     bindex (0.5.0)
     bootstrap-sass (3.3.7)
       autoprefixer-rails (>= 5.2.1)
@@ -78,6 +79,8 @@ GEM
       railties (>= 3.2, < 5.2)
     globalid (0.4.0)
       activesupport (>= 4.2.0)
+    highlight_js-rails (7.1.0)
+      rails (>= 3.1.1)
     i18n (0.8.1)
     jbuilder (2.6.4)
       activesupport (>= 3.0.0)
@@ -213,11 +216,13 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   bootstrap-sass
   bootstrap_sb_admin_base_v2
   byebug
   capybara (~> 2.13.0)
   coffee-rails (~> 4.2)
+  highlight_js-rails
   jbuilder (~> 2.5)
   jquery-rails
   json

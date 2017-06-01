@@ -15,16 +15,16 @@ RSpec.describe TestCase, type: :model do
     # @parameters["body"] = JSON.parse(File.read('spec/models/autoresolve-trigger.json')).to_json
     # test_case = TestCase.create(:parameters => @parameters, :headers => @headers)
     test_case = TestCase.first
-    # response = test_case.peform_request
-    # expect(response.code).to  eq("200")
-    expect(test_case.peform_request.code).to eq("200")
+
+
+    time = Benchmark.measure do
+      response = test_case.peform_request.code
+      print time
+      expect(response).to eq("200")
+    end
+    print time
+
+
   end
 
- # it "HTTP Response should be 400 if body is empty" do
- #    @parameters["body"] = ''
- #    # test_case = TestCase.new(@parameters, @headers)
- #    # test_case.save
- #    # response = test_case.peform_request
- #    # expect(response.code).to  eq("400")
- # end
 end

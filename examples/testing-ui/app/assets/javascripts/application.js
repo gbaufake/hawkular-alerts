@@ -16,4 +16,12 @@
 //= require jquery_ujs
 //= require bootstrap-sprockets
 //= require bootstrap_sb_admin_base_v2
+//= require highlight_js/highlight
+//= require highlight_js/languages/javascript
 //= require_tree .
+
+$(document).ready(function() {
+  $('pre code').each(function(i, block) {
+    hljs.highlightBlock(block);
+  });
+});

@@ -10,12 +10,7 @@
 
   <body>
     <%= render "layouts/partials/navbar" %>
-    <% if notice %>
-     <div class="alert alert-success fade in" data-alert="alert">
-       <a class="close" data-dismiss='alert' href="#">×</a>
-       <p><%= notice %></p>
-     </div>
-   <% end %>
+    <%= render partial: "layouts/partials/flash_messages", flash: flash %> 
 
       <div id="wrapper">
         <div id="page-wrapper">

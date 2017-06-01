@@ -2,6 +2,8 @@ class TestCase
   include Mongoid::Document
   field :parameters, type: Hash
   field :headers, type: Hash
+  field :user, type: String
+  field :password, type: String
 
   has_many :executions
 
@@ -50,6 +52,10 @@ class TestCase
     return request
   end
   def peform_request
-    return self.http.request(self.request)
+    begin
+      return self.http.request(self.request)
+    rescue
+      rescue Errno::ECONNREFUSED
+    end
   end
 end

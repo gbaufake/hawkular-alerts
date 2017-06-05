@@ -27,8 +27,9 @@ class TestCasesController < ApplicationController
 
     @test_case = TestCase.new(test_case_params)
     respond_to do |format|
-      @test_case.headers[:authorization] = "Basic " + Base64.encode64( "#{@test_case.user}:{#{@test_case.password}")
       if @test_case.save
+        @test_case.headers[:authorization] = "Basic " + Base64.encode64( "#{@test_case.user}:{#{@test_case.password}")
+        @test_case.save
         format.html { redirect_to test_cases_path, notice: 'Test case was successfully created.' }
         format.json { render :show, status: :created, location: @test_case }
       else
@@ -42,8 +43,9 @@ class TestCasesController < ApplicationController
   # PATCH/PUT /test_cases/1.json
   def update
     respond_to do |format|
-      @test_case.headers[:authorization] = "Basic " + Base64.encode64( "#{@test_case.user}:{#{@test_case.password}")
       if @test_case.update(test_case_params)
+        @test_case.headers[:authorization] = "Basic " + Base64.encode64( "#{@test_case.user}:{#{@test_case.password}")
+        @test_case.save
         format.html { redirect_to test_cases_path, notice: 'Test case was successfully updated.' }
       else
         format.html { render :edit }

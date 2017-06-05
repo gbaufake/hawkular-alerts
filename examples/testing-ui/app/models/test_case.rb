@@ -8,54 +8,29 @@ class TestCase
   has_many :executions
 
 
-  def url
-    @url = URI(self.parameters[:hawkular_environment] + self.parameters[:hawkular_endpoint])
-  end
-
   def name
     return self.parameters[:name]
   end
 
-  def http
-
-    @http = Net::HTTP.new(self.url.host, self.url.port)
-    @http.use_ssl = self.parameters[:ssl].to_bool
-    @http.verify_mode = OpenSSL::SSL::VERIFY_NONE
-    return @http
+  def url
+    return self.parameters[:hawkular_environment] + self.parameters[:hawkular_endpoint]
   end
 
-  def request
-    case self.parameters[:http_method]
-      when 'GET'
-        request = Net::HTTP::Get.new(@url)
-         return configure_base_request(self.headers, request)
-
-       when 'POST'
-         request = Net::HTTP::Post.new(@url)
-         request.body = self.parameters[:body]
-         return configure_base_request(self.headers, request)
-
-       when 'DELETE'
-         request = Net::HTTP::Delete.new(@url)
-         return configure_base_request(headers)
-
-       when 'PUT'
-         request = Net::HTTP::Put.new(@url)
-         return configure_base_request(headers)
-       end
+  def ssl
+    return self.parameters[:ssl].to_bool
   end
 
-  def configure_base_request(headers, request)
-    headers.each do |key, value|
-      request[key.gsub(/_/, "-")] = value
+  def http_method
+    return self.parameters[:http_method]
+  end
+
+  def http_headers()
+    headers_modified = {}
+    self.headers.each do |key, value|
+      headers_modified[key.gsub(/_/, "-")] = value
     end
-    return request
+    headers_modified[:authorization] = "Basic " + Base64.encode64( "#{self.user}:{#{self.password}")
+    return headers_modified
   end
-  def peform_request
-    begin
-      return self.http.request(self.request)
-    rescue
-      rescue Errno::ECONNREFUSED
-    end
-  end
+
 end

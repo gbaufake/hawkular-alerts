@@ -11,6 +11,7 @@ class ExecutionsController < ApplicationController
   # GET /executions/1
   # GET /executions/1.json
   def show
+    @test_case = TestCase.find(params[:test_case_id ])
   end
 
   # GET /executions/new
@@ -57,16 +58,13 @@ class ExecutionsController < ApplicationController
     end
 
     def execute
-      if @execution.test_case.peform_request.nil?
-      else
-        time = Benchmark.measure do
-          response = @execution.test_case.peform_request
-        end
-        response = @execution.test_case.peform_request
-        @execution.actual_response_code = response.code
-        @execution.actual_response_body = response.body
-        @execution.time_of_response = time.real
-        @execution.save
-      end
+    time = Benchmark.measure do
+      response = @execution.perform_request
+    end
+    response = @execution.perform_request
+    @execution.actual_response_code = response.code
+    @execution.actual_response_body = response.body
+    @execution.time_of_response = time.real
+    @execution.save
     end
 end

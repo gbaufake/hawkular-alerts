@@ -54,7 +54,7 @@ class ExecutionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def execution_params
-      params.require(:execution).permit(:expected_response_code, :test_case_id)
+      params.require(:execution).permit(:expected_response_code, :test_case_id, :body)
     end
 
     def execute

@@ -1,5 +1,10 @@
 sudo: false
 language: java
+install: true
+addons:
+  sonarcloud:
+    token:
+      secure: "5b59e5cfdcc6cb07dd59db5155571caf5cc0c40d"
 jdk:
 - oraclejdk8
 notifications:
@@ -13,6 +18,7 @@ cache:
   directories: # keep in sync with CACHED_DIRECTORIES below
   - $HOME/.m2/repository
   - $HOME/.m2/wrapper
+  - '$HOME/.sonar/cache'
 
 install:
 - ./mvnw -version -B
@@ -21,6 +27,7 @@ install:
 script:
 - ./mvnw -s .travis.maven.settings.xml verify -Dtest-env=perf -Dsrcdeps.quiet=false
 - ./mvnw -s .travis.maven.settings.xml verify -Pitest
+- mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent package sonar:sonar
 env:
   global:
   - secure: TQJ1pIBM6dGgCQj59OiYxmKI2Nk+0XIT9His/iBt4FGRXHQ4BqWZuMVbtiX0ngGJbyg6Ntq9mJwmioGNl3tyK3jY9eqD/pWg8XjA9YAn+UINSBS3ooPYgAwIjTuJp6o7x9xExLEKCdzyttFjQ0BG+AkNvIEVyjSTZq7ky/ngbP4=

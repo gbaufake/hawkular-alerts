@@ -5,12 +5,9 @@ import random
 
 # This is just a Dummy Client - The call won't be through client
 base = HawkularAlertsClient(tenant_id='dummy')
-trigger_id = ''
 
 class GroupTriggerBehavior(TaskSet):
     def on_start(self):
-        self.random_value = str(random.randint(0,9999))
-        self.trigger_id = "MIQ-#" + self.random_value
         self.test_hawkular_status
 
     def test_hawkular_status(self):
@@ -57,6 +54,9 @@ class GroupTriggerBehavior(TaskSet):
     @task(1)
     def create_group_trigger(self):
 
+        self.random_value = str(random.randint(0,9999))
+        self.trigger_id = "MIQ-#" + self.random_value
+
         headers = {
             'authorization': "Basic amRvZTpwYXNzd29yZA==",
             'content-type': "application/json"
@@ -72,19 +72,17 @@ class GroupTriggerBehavior(TaskSet):
              if response.status_code == 400:
                 print(response.content)
 
-    @task(1)
-    def create_group_conditions(self):
-       headers = {
-            'authorization': "Basic amRvZTpwYXNzd29yZA==",
-            'content-type': "application/json"
-        }
-       headers['hawkular-tenant'] = "hawkular-client -" +self.random_value
-       group_conditions =  self.initialize_sample_group_condition()
+        group_conditions =  self.initialize_sample_group_condition()
 
+        print(group_conditions)
 
-       with self.client.put(url=base._service_url(['triggers', 'groups', self.trigger_id, 'conditions', TriggerMode.FIRING]),
-       data=group_conditions, headers=headers,  catch_response=True) as response:
-             if response.status_code == 400:
+        with self.client.put(url=base._service_url(['triggers', 'groups', self.trigger_id, 'conditions', TriggerMode.FIRING]),
+        data=group_conditions, headers=headers,  catch_response=True) as response:
+            if response.status_code == 200:
+                # print(response.request.headers)
+                # print(response.request.url)
+                # print(response.elapsed)
+            if response.status_code == 400:
                 print(response.content)
 
 

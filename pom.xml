@@ -119,6 +119,7 @@
             <exclude>**/*.ftl</exclude>
             <exclude>**/*.rules</exclude>
             <exclude>**/*.tokens</exclude>
+            <exclude>perfomance-tests/*.py</exclude>
           </excludes>
         </configuration>
       </plugin>

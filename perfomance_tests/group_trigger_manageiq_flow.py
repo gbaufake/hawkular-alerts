@@ -74,11 +74,9 @@ class GroupTriggerBehavior(TaskSet):
 
         group_conditions =  self.initialize_sample_group_condition()
 
-        print(group_conditions)
-
         with self.client.put(url=base._service_url(['triggers', 'groups', self.trigger_id, 'conditions', TriggerMode.FIRING]),
         data=group_conditions, headers=headers,  catch_response=True) as response:
-            if response.status_code == 200:
+                # if response.status_code == 200:
                 # print(response.request.headers)
                 # print(response.request.url)
                 # print(response.elapsed)

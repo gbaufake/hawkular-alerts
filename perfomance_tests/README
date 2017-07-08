@@ -1,0 +1,15 @@
+## Testing Hawkular Alerts on Perfomance Side
+
+- Using [http://locust.io/] to test Hawkular Alerts on Perfomance Side.
+
+
+
+- Run Locust
+
+` locust -f group_trigger_manageiq_flow.py --host=http://localhost:8080/ -c 1 -r 100 --no-web`
+
+- where `-f` is the file
+-  `host` is the host where Hawkular Alerts is Running
+-c is number of concurrent client
+- r is rate per second in which clients are spawned
+-- no-web is to run without the locust web-app
